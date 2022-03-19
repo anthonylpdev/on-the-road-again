@@ -1,4 +1,4 @@
-import { WebGLRenderer } from 'three';
+import { sRGBEncoding, WebGLRenderer } from 'three';
 import Experience from './Experience';
 
 export default class Renderer {
@@ -13,6 +13,7 @@ export default class Renderer {
       antialias: true,
       powerPreference: 'high-performance',
       canvas: this.experience.targetCanvas,
+      outputEncoding: sRGBEncoding,
     });
     this.resize();
   }

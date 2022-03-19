@@ -12,11 +12,11 @@ export default class Experience {
     Experience.instance = this;
 
     this.targetCanvas = _options.target;
-    this.setScene();
-    this.setCamera();
     this.setLoader();
 
     this.loader.manager.onLoad = () => {
+      this.setScene();
+      this.setCamera();
       this.setWorld();
       this.setRenderer();
 
@@ -53,6 +53,8 @@ export default class Experience {
 
   setScene() {
     this.scene = new Scene();
+    this.scene.background = this.loader.resources.envMap;
+    this.scene.environment = this.loader.resources.envMap;
   }
 
   setCamera() {

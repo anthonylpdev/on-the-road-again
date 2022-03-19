@@ -10,10 +10,10 @@ export default class Camera {
   }
 
   setInstance() {
-    this.instance = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 5, 50);
+    this.instance = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
     this.instance.position.x = 0;
-    this.instance.position.y = 0;
-    this.instance.position.z = 20;
+    this.instance.position.y = 3;
+    this.instance.position.z = 10;
     this.resize();
   }
 
