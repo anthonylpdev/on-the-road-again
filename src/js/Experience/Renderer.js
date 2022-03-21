@@ -1,4 +1,4 @@
-import { sRGBEncoding, WebGLRenderer } from 'three';
+import { ReinhardToneMapping, sRGBEncoding, WebGLRenderer } from 'three';
 import Experience from './Experience';
 
 export default class Renderer {
@@ -13,8 +13,12 @@ export default class Renderer {
       antialias: true,
       powerPreference: 'high-performance',
       canvas: this.experience.targetCanvas,
-      outputEncoding: sRGBEncoding,
     });
+
+    this.instance.outputEncoding = sRGBEncoding;
+    this.instance.envMapIntensity = 2.5;
+    this.instance.toneMapping = ReinhardToneMapping;
+    this.instance.toneMappingExposure = 3;
     this.resize();
   }
 

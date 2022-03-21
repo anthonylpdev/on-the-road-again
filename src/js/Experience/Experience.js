@@ -1,4 +1,5 @@
 import { Scene } from 'three';
+import { Pane } from 'tweakpane';
 import Renderer from './Renderer';
 import Camera from './Camera';
 import Loader from './Loader';
@@ -15,10 +16,12 @@ export default class Experience {
     this.setLoader();
 
     this.loader.manager.onLoad = () => {
+      this.setDebug();
       this.setScene();
       this.setCamera();
       this.setWorld();
       this.setRenderer();
+      this.setListener();
 
       this.resize();
       window.addEventListener('resize', () => {
@@ -36,7 +39,7 @@ export default class Experience {
     });
     window.addEventListener('dblclick', () => {
       const fullscreenElement = document.fullscreenElement
-          || document.webkitFullscreenElement;
+        || document.webkitFullscreenElement;
       if (!fullscreenElement) {
         if (this.targetCanvas.requestFullscreen) {
           this.targetCanvas.requestFullscreen();
@@ -83,6 +86,10 @@ export default class Experience {
       scene: this.scene,
       camera: this.camera.instance,
     });
+  }
+
+  setDebug() {
+    this.debug = new Pane();
   }
 
   resize() {

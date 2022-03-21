@@ -52,9 +52,9 @@ export default class Loader {
         ],
       },
       {
-        name: 'carOcclu',
+        name: 'noise',
         type: 'texture',
-        path: 'assets/car_occlu.jpeg',
+        path: 'assets/noise.png',
       },
     ];
 
@@ -87,7 +87,7 @@ export default class Loader {
           break;
         case 'cube':
           this.CubeTextureLoader.load(current.path, (currentResource) => {
-            // currentResource.encoding = sRGBEncoding;
+            currentResource.encoding = sRGBEncoding;
             // console.log(currentResource.encoding);
             this.resources = {
               ...this.resources,
