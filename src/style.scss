@@ -4,9 +4,39 @@ body {
     &.webgl {
       width: 100vw;
       height: 100vh;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
+    }
+  }
+  main {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    width: 280px;
+    height: 240px;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: rgba(0, 0, 0, 0.25);
+    ul.btn-list {
+      padding: 40px;
+      width: 100%;
+      li {
+        button {
+          background: aliceblue;
+          border: 1px solid transparent;
+          border-radius: 8px;
+          padding: 8px 16px;
+          width: 100%;
+          margin-bottom: 32px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
 }
