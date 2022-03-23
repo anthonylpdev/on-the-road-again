@@ -12,4 +12,8 @@ export default class World {
   setCar() {
     this.car = new Car();
   }
+
+  update() {
+    this.car.update();
+  }
 }

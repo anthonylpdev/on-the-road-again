@@ -1,9 +1,10 @@
-import { Scene } from 'three';
+import { Color, Fog, Scene } from 'three';
 import { Pane } from 'tweakpane';
 import Renderer from './Renderer';
 import Camera from './Camera';
 import Loader from './Loader';
 import World from './World';
+import Interface from './Interface';
 
 export default class Experience {
   constructor(_options = {}) {
@@ -21,7 +22,7 @@ export default class Experience {
       this.setCamera();
       this.setWorld();
       this.setRenderer();
-      this.setListener();
+      this.setInterface();
 
       this.resize();
       window.addEventListener('resize', () => {
@@ -32,32 +33,21 @@ export default class Experience {
     };
   }
 
-  setListener() {
-    window.addEventListener('resize', () => {
-      this.camera.resize();
-      this.renderer.resize();
-    });
-    window.addEventListener('dblclick', () => {
-      const fullscreenElement = document.fullscreenElement
-        || document.webkitFullscreenElement;
-      if (!fullscreenElement) {
-        if (this.targetCanvas.requestFullscreen) {
-          this.targetCanvas.requestFullscreen();
-        } else if (this.targetCanvas.webkitRequestFullscreen) {
-          this.targetCanvas.webkitRequestFullscreen();
-        }
-      } else if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      }
-    });
+  setInterface() {
+    this.interface = new Interface();
   }
 
   setScene() {
     this.scene = new Scene();
     this.scene.background = this.loader.resources.envMap;
     this.scene.environment = this.loader.resources.envMap;
+    /*this.fog = new Fog(
+      new Color(0x000000),
+      5,
+      25,
+    );
+    this.scene.fog = this.fog;*/
+    // this.scene.background = this.mainColor;
   }
 
   setCamera() {
@@ -98,8 +88,9 @@ export default class Experience {
   }
 
   update() {
-    this.renderer.update();
     this.camera.update();
+    this.renderer.update();
+    this.world.update();
     window.requestAnimationFrame(this.update.bind(this));
   }
 }

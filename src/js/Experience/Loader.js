@@ -52,7 +52,7 @@ export default class Loader {
         ],
       },
       {
-        name: 'noise',
+        name: 'gradientTexture',
         type: 'texture',
         path: 'assets/noise.png',
       },

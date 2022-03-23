@@ -14,6 +14,7 @@ export default class Camera {
     this.instance.position.x = 0;
     this.instance.position.y = 3;
     this.instance.position.z = 10;
+    this.instance.rotation.reorder('YXZ');
     this.resize();
   }
 
