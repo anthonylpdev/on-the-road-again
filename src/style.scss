@@ -20,23 +20,25 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-color: rgba(0, 0, 0, 0.25);
     ul.btn-list {
       padding: 40px;
       width: 100%;
       li {
         button {
-          background: aliceblue;
-          border: 1px solid transparent;
-          border-radius: 8px;
-          padding: 8px 16px;
-          width: 100%;
+          width: 24px;
+          height: 24px;
+          border: 1px #FFF solid;
+          border-radius: 50%;
           margin-bottom: 32px;
+          background-color: #000;
           &:hover {
             cursor: pointer;
           }
         }
       }
+    }
+    .hide {
+      display: none;
     }
   }
 }

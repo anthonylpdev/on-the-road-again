@@ -51,11 +51,6 @@ export default class Loader {
           'assets/nz.png',
         ],
       },
-      {
-        name: 'gradientTexture',
-        type: 'texture',
-        path: 'assets/noise.png',
-      },
     ];
 
     for (const current of list) {
@@ -77,18 +72,9 @@ export default class Loader {
             };
           });
           break;
-        case 'fbx':
-          this.FBXLoader.load(current.path, (currentResource) => {
-            this.resources = {
-              ...this.resources,
-              [current.name]: currentResource,
-            };
-          });
-          break;
         case 'cube':
           this.CubeTextureLoader.load(current.path, (currentResource) => {
             currentResource.encoding = sRGBEncoding;
-            // console.log(currentResource.encoding);
             this.resources = {
               ...this.resources,
               [current.name]: currentResource,

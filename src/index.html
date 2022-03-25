@@ -8,23 +8,29 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Anthony LOPEZ - On the road again</title>
+    <link rel="icon" type="image/x-icon" href="../static/assets/favicon.ico">
   </head>
   <body>
     <main class="dom">
       <ul class="btn-list">
         <li>
-          <button class="color-switch" data-color="1d2914">Green</button>
+          <button class="color-switch" data-color="1d2914"></button>
         </li>
         <li>
-          <button class="color-switch" data-color="0a122c">Night blue</button>
+          <button class="color-switch" data-color="0a122c"></button>
         </li>
         <li>
-          <button class="color-switch" data-color="6F3716">Brown</button>
+          <button class="color-switch" data-color="6F3716"></button>
         </li>
         <li>
-          <button class="color-switch" data-color="720404">Red</button>
+          <button class="color-switch" data-color="720404"></button>
         </li>
       </ul>
+      <div class="hide">
+        <video id="panel-texture" loop autoplay>
+          <source src="../static/assets/panel-sized.mp4" type='video/mp4'>
+        </video>
+      </div>
     </main>
     <canvas class="webgl" id="webgl"></canvas>
   </body>

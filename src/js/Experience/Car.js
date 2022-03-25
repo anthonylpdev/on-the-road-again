@@ -1,4 +1,4 @@
-import { Color, sRGBEncoding, Vector3 } from 'three';
+import { Color, LineBasicMaterial, sRGBEncoding, Vector3 } from 'three';
 import Experience from './Experience';
 
 export default class Car {
@@ -7,7 +7,7 @@ export default class Car {
     this.scene = this.experience.scene;
     this.resources = this.experience.loader.resources;
     this.setModel();
-    this.setDebug();
+    // this.setDebug();
   }
 
   setModel() {
@@ -20,14 +20,14 @@ export default class Car {
     this.resources.gltfScene.scene.scale.set(2, 2, 2);
     this.resources.gltfScene.scene.traverse((child) => {
       if (child.isMesh) {
-        // material.wireframe = true;
+        child.material.outputEncoding = sRGBEncoding;
+        child.material.envMap = this.experience.loader.resources.envMap;
         if (child.name.startsWith('glasses') || child.name === '_optik_glass_'
           || child.name === '_optik_glass_red_') {
           child.material.transparent = true;
         }
 
         if (child.name.startsWith('_carosserie_')) {
-          child.material.outputEncoding = sRGBEncoding;
           child.material.onBeforeCompile = (shader) => {
             shader.uniforms.uColor01 = { value: new Color(this.params.color01) };
             shader.uniforms.uColor02 = { value: new Color(this.params.color02) };
@@ -62,7 +62,7 @@ export default class Car {
             shader.fragmentShader = shader.fragmentShader.replace(
               '#include <color_fragment>',
               `#include <color_fragment>
-                float mask = min(max(smoothstep(-1.0, 1.0, vPosition.x / 5.) + uProgression, 0.0), 1.0);
+                float mask = clamp(smoothstep(-1.0, 1.0, vPosition.x / 5.) + uProgression, 0.0, 1.0);
                 final = mix(uColor01, uColor02, mask);
                 diffuseColor.rgb = vec3(final);`,
             );

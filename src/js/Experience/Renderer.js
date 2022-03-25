@@ -18,7 +18,7 @@ export default class Renderer {
     this.instance.outputEncoding = sRGBEncoding;
     this.instance.envMapIntensity = 2.5;
     this.instance.toneMapping = ReinhardToneMapping;
-    this.instance.toneMappingExposure = 3;
+    this.instance.toneMappingExposure = 5;
     this.resize();
   }
 

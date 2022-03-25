@@ -5,6 +5,7 @@ import Camera from './Camera';
 import Loader from './Loader';
 import World from './World';
 import Interface from './Interface';
+// import Postprocessing from './Postprocessing';
 
 export default class Experience {
   constructor(_options = {}) {
@@ -12,16 +13,18 @@ export default class Experience {
       return Experience.instance;
     }
     Experience.instance = this;
+    window.xp = this;
 
     this.targetCanvas = _options.target;
     this.setLoader();
 
     this.loader.manager.onLoad = () => {
-      this.setDebug();
+      // this.setDebug();
       this.setScene();
       this.setCamera();
       this.setWorld();
       this.setRenderer();
+      // this.setPostprocessing();
       this.setInterface();
 
       this.resize();
@@ -39,15 +42,16 @@ export default class Experience {
 
   setScene() {
     this.scene = new Scene();
-    this.scene.background = this.loader.resources.envMap;
+    const colorMain = new Color('#999');
+    // this.scene.background = this.loader.resources.envMap;
     this.scene.environment = this.loader.resources.envMap;
-    /*this.fog = new Fog(
-      new Color(0x000000),
-      5,
-      25,
+    this.fog = new Fog(
+      colorMain,
+      10,
+      80,
     );
-    this.scene.fog = this.fog;*/
-    // this.scene.background = this.mainColor;
+    this.scene.fog = this.fog;
+    this.scene.background = colorMain;
   }
 
   setCamera() {
@@ -78,6 +82,10 @@ export default class Experience {
     });
   }
 
+  setPostprocessing() {
+    this.postprocessing = new Postprocessing();
+  }
+
   setDebug() {
     this.debug = new Pane();
   }
@@ -90,6 +98,7 @@ export default class Experience {
   update() {
     this.camera.update();
     this.renderer.update();
+    // this.postprocessing.update();
     this.world.update();
     window.requestAnimationFrame(this.update.bind(this));
   }
