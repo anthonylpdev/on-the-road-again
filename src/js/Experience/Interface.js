@@ -47,6 +47,5 @@ export default class Interface {
           .play();
       });
     });
-    // this.experience.debug.refresh();
   }
 }

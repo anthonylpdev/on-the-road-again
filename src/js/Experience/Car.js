@@ -1,4 +1,4 @@
-import { Color, LineBasicMaterial, sRGBEncoding, Vector3 } from 'three';
+import { Color, sRGBEncoding } from 'three';
 import Experience from './Experience';
 
 export default class Car {
@@ -7,7 +7,6 @@ export default class Car {
     this.scene = this.experience.scene;
     this.resources = this.experience.loader.resources;
     this.setModel();
-    // this.setDebug();
   }
 
   setModel() {
@@ -18,12 +17,12 @@ export default class Car {
     };
 
     this.resources.gltfScene.scene.scale.set(2, 2, 2);
+
     this.resources.gltfScene.scene.traverse((child) => {
-      if (child.isMesh) {
+      if (child.material) {
         child.material.outputEncoding = sRGBEncoding;
         child.material.envMap = this.experience.loader.resources.envMap;
-        if (child.name.startsWith('glasses') || child.name === '_optik_glass_'
-          || child.name === '_optik_glass_red_') {
+        if (child.name.startsWith('glasses') || child.name === '_optik_glass_' || child.name === '_optik_glass_red_') {
           child.material.transparent = true;
         }
 
@@ -64,7 +63,7 @@ export default class Car {
               `#include <color_fragment>
                 float mask = clamp(smoothstep(-1.0, 1.0, vPosition.x / 5.) + uProgression, 0.0, 1.0);
                 final = mix(uColor01, uColor02, mask);
-                diffuseColor.rgb = vec3(final);`,
+                diffuseColor.rgba = vec4(final, 0);`,
             );
 
             child.material.userData.shader = shader;
@@ -74,19 +73,6 @@ export default class Car {
     });
 
     this.scene.add(this.resources.gltfScene.scene);
-  }
-
-  setDebug() {
-    this.experience.debug.addInput(this.params, 'color01', { view: 'color' });
-    this.experience.debug.addInput(this.params, 'color02', { view: 'color' });
-    this.experience.debug.addInput(this.params, 'progression', {
-      min: -1,
-      max: 1,
-      step: 0.001,
-    });
-    this.experience.debug.on('change', (ev) => {
-      this.params[ev.presetKey] = ev.value;
-    });
   }
 
   setParams(_key, _value) {
