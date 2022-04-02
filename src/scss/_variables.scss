@@ -1,0 +1,43 @@
+$fz_title: 48px;
+$fz_subtitle: 24px;
+$fz_content: 16px;
+
+$lh_title: 56px;
+$lh_subtitle: 32px;
+$lh_content: 24px;
+
+$fw_title: 900;
+$fw_subtitle: 500;
+$fw_content: 300;
+
+$color_primary: #3F3F3F;
+$color_reversed: #FFFFFF;
+
+$background_primary: #FCFCFC;
+$background_reversed: #1E1E1E;
+
+$bc_primary: #3F3F3F;
+$bc_secondary: #FFFFFF;
+
+%base-title {
+  font-style: normal;
+  font-weight: $fw_title;
+  font-size: $fz_title;
+  line-height: $lh_title;
+}
+
+%base-subtitle {
+  font-style: normal;
+  font-weight: $fw_subtitle;
+  font-size: $fz_subtitle;
+  line-height: $lh_subtitle;
+  padding-bottom: 32px;
+  width: 100%;
+}
+
+%base-content {
+  font-style: normal;
+  font-weight: $fw_content;
+  font-size: $fz_content;
+  line-height: $lh_content;
+}

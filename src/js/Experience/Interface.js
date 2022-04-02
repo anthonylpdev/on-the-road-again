@@ -4,19 +4,20 @@ import Experience from './Experience';
 export default class Interface {
   constructor() {
     this.experience = new Experience();
-    this.setColorSwitch(this.experience.world.car);
+    this.setColorSwitch();
   }
 
   setColorSwitch() {
     this.btnColorSwitch = document.querySelectorAll('button.color-switch');
     this.btnColorSwitch.forEach((el, index) => {
-      const color = parseInt(el.getAttribute('data-color'), 16);
+      const color = el.getAttribute('data-color');
+      el.style.backgroundColor = `#${color}`;
       switch (index) {
         case 0:
-          this.experience.world.car.params.color01 = color;
+          this.experience.world.car.params.color01 = parseInt(color, 16);
           break;
         case 1:
-          this.experience.world.car.params.color02 = color;
+          this.experience.world.car.params.color02 = parseInt(color, 16);
           break;
         default:
           break;
@@ -46,6 +47,5 @@ export default class Interface {
           .play();
       });
     });
-    this.experience.debug.refresh();
   }
 }

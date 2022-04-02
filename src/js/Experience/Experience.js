@@ -1,5 +1,4 @@
 import { Color, Fog, Scene } from 'three';
-import { Pane } from 'tweakpane';
 import Renderer from './Renderer';
 import Camera from './Camera';
 import Loader from './Loader';
@@ -12,12 +11,12 @@ export default class Experience {
       return Experience.instance;
     }
     Experience.instance = this;
+    window.xp = this;
 
     this.targetCanvas = _options.target;
     this.setLoader();
 
     this.loader.manager.onLoad = () => {
-      this.setDebug();
       this.setScene();
       this.setCamera();
       this.setWorld();
@@ -25,6 +24,7 @@ export default class Experience {
       this.setInterface();
 
       this.resize();
+      window.experience = this;
       window.addEventListener('resize', () => {
         this.resize();
       });
@@ -39,15 +39,15 @@ export default class Experience {
 
   setScene() {
     this.scene = new Scene();
-    this.scene.background = this.loader.resources.envMap;
+    const colorMain = new Color('#999');
     this.scene.environment = this.loader.resources.envMap;
-    /*this.fog = new Fog(
-      new Color(0x000000),
-      5,
-      25,
+    this.fog = new Fog(
+      colorMain,
+      10,
+      80,
     );
-    this.scene.fog = this.fog;*/
-    // this.scene.background = this.mainColor;
+    this.scene.fog = this.fog;
+    this.scene.background = colorMain;
   }
 
   setCamera() {
@@ -56,14 +56,6 @@ export default class Experience {
 
   setLoader() {
     this.loader = new Loader();
-    /* this.loader.manager.onLoad = () => {
-      console.log(this.loader.manager.resources);
-    } */
-    /* this.loader.manager.onLoad = () => {
-      console.log(this.loader.manager.resources);
-      // this.experience.resources
-      // console.log(this.resources);
-    } */
   }
 
   setWorld() {
@@ -76,10 +68,6 @@ export default class Experience {
       scene: this.scene,
       camera: this.camera.instance,
     });
-  }
-
-  setDebug() {
-    this.debug = new Pane();
   }
 
   resize() {
