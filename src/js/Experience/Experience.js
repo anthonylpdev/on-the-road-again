@@ -73,12 +73,14 @@ export default class Experience {
   resize() {
     this.renderer.resize();
     this.camera.resize();
+    this.interface.resize();
   }
 
   update() {
     this.camera.update();
     this.renderer.update();
     this.world.update();
+    this.interface.update();
     window.requestAnimationFrame(this.update.bind(this));
   }
 }

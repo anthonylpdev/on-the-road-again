@@ -1,10 +1,12 @@
 import gsap from 'gsap';
 import Experience from './Experience';
+import Scroll from './Scroll';
 
 export default class Interface {
   constructor() {
     this.experience = new Experience();
     this.setColorSwitch();
+    this.setScroll();
   }
 
   setColorSwitch() {
@@ -47,5 +49,17 @@ export default class Interface {
           .play();
       });
     });
+  }
+
+  setScroll() {
+    this.scroll = new Scroll();
+  }
+
+  resize() {
+    this.scroll.resize();
+  }
+
+  update() {
+    this.scroll.update();
   }
 }
