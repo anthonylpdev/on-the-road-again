@@ -16,13 +16,14 @@ export default class Car {
       progression: -1,
     };
 
-    this.resources.gltfScene.scene.scale.set(2, 2, 2);
+    let glbWorld = this.resources.gltfScene.scene.getObjectByName('world');
 
-    this.resources.gltfScene.scene.traverse((child) => {
+    glbWorld.traverse((child) => {
       if (child.material) {
         child.material.outputEncoding = sRGBEncoding;
         child.material.envMap = this.experience.loader.resources.envMap;
-        if (child.name.startsWith('glasses') || child.name === '_optik_glass_' || child.name === '_optik_glass_red_') {
+        if (child.name.startsWith('glasses') || child.name === '_optik_glass_' || child.name ===
+          '_optik_glass_red_') {
           child.material.transparent = true;
         }
 
