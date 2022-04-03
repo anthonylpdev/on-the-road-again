@@ -31,14 +31,45 @@ body {
               left: 0;
               max-width: 100%;
             }
-            .intro-inner {
-              // pointer-events: none;
+            .dom-part {
               position: absolute;
               z-index: 10;
               left: 0;
               top: 50%;
               transform: translate(0, -50%);
               width: 100%;
+              &.config-dom {
+                display: none;
+                align-items: center;
+                justify-content: flex-end;
+                &.btn-list {
+                  padding: 40px;
+                  width: 100%;
+                  li {
+                    opacity: 0;
+                    button {
+                      width: 24px;
+                      height: 24px;
+                      border: 1px #FFF solid;
+                      border-radius: 50%;
+                      margin-bottom: 32px;
+                      background-color: #000;
+                      &:hover {
+                        cursor: pointer;
+                      }
+                    }
+                  }
+                }
+                &.btn-close {
+                  top: 80px;
+                  opacity: 0;
+                  &:hover {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+            .intro-inner {
               > .container {
                 display: flex;
                 flex-direction: column;
@@ -74,29 +105,6 @@ body {
               border: none;
               text-transform: uppercase;
               color: $color_reversed;
-            }
-          }
-          &.config {
-            // display: flex;
-            display: none;
-            align-items: center;
-            justify-content: flex-end;
-            ul.btn-list {
-              padding: 40px;
-              width: 100%;
-              li {
-                button {
-                  width: 24px;
-                  height: 24px;
-                  border: 1px #FFF solid;
-                  border-radius: 50%;
-                  margin-bottom: 32px;
-                  background-color: #000;
-                  &:hover {
-                    cursor: pointer;
-                  }
-                }
-              }
             }
           }
           &.highlight {
@@ -150,13 +158,20 @@ body {
         .btn {
           text-decoration: none;
           color: $color_reversed;
-          background-color: $background_reversed;
+          background-color: $background_secondary;
           border: 1px solid $bc_primary;
           border-radius: 8px;
           padding: 8px 24px;
+          transition: background-color 0.4s ease-out, color 0.4s ease-out;
           &.btn-secondary {
             background-color: transparent;
             color: $color_primary;
+          }
+          &, &btn-secondary {
+            &:hover {
+              background-color: $background_reversed;
+              color: $color_reversed;
+            }
           }
         }
       }
@@ -196,6 +211,47 @@ body {
       .container {
         width: 1312px;
         margin: 0 auto;
+      }
+    }
+  }
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: $background_reversed;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $color_reversed;
+    text-align: center;
+    > svg {
+      padding-bottom: 32px;
+      opacity: 0;
+    }
+    .state {
+      height: 48px;
+      overflow: hidden;
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loaded {
+        span {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      span {
+        @extend %base-content;
+        display: block;
+        text-transform: uppercase;
+        transform: translate(0, 48px);
       }
     }
   }

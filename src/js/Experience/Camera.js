@@ -1,4 +1,4 @@
-import { PerspectiveCamera, Vector3 } from 'three';
+import { Euler, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Experience from './Experience';
 import { Pane } from 'tweakpane';
@@ -10,6 +10,23 @@ export default class Camera {
 
     this.params = {
       camera: [
+        {
+          position: {
+            x: -12.8511,
+            y: 12.5877,
+            z: -0.0037,
+          },
+          rotation: {
+            x: -1.5708,
+            y: 0,
+            z: 0,
+          },
+          target: {
+            x: -2.8511,
+            y: 3.7524,
+            z: -0.0038,
+          },
+        },
         {
           position: {
             x: -1.3502802316350355,
@@ -25,6 +42,23 @@ export default class Camera {
             x: -1.4336802316337736,
             y: 0.8665559167227498,
             z: 0.6519909280804118,
+          },
+        },
+        {
+          position: {
+            x: -7.490006497837689,
+            y: 1.5277263775531744,
+            z: 2.6905331251051967,
+          },
+          rotation: {
+            x: -0.23164261982330583,
+            y: -0.9559885267885452,
+            z: -0.1903511321947596,
+          },
+          target: {
+            x: -3.4055848816461327,
+            y: 0.8656257700835449,
+            z: -0.1164444036212996,
           },
         },
         {
@@ -61,30 +95,15 @@ export default class Camera {
             z: -0.0038,
           },
         },
-        /*{
-          position: {
-            x: -4.795261230741478,
-            y: 1.6059364802727694,
-            z: -6.133210015870113,
-          },
-          rotation: {
-            x: -2.9996018335926067,
-            y: -0.6729609756412728,
-            z: -3.0527242575581544,
-          },
-          target: {
-            x: -0.747052077514771,
-            y: 0.887218913985699,
-            z: -1.105554383450053,
-          },
-        },*/
       ],
     };
     this.setInstance();
     this.setControls();
+    // this.setDebug();
+  }
 
+  setDebug() {
     this.pane = new Pane();
-    console.log(this.pane);
     this.pane
       .addInput({
         camera: 0,
@@ -114,30 +133,26 @@ export default class Camera {
   }
 
   setInstance() {
+    const initialCamera = this.params.camera[0];
     this.instance = new PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 500);
 
-    const initialCamera = this.params.camera[0];
-
     this.nextCamera = {
-      position: this.instance.position,
-      rotation: this.instance.rotation,
+      position: new Vector3(
+        initialCamera.position.x,
+        initialCamera.position.y,
+        initialCamera.position.z,
+      ),
+      rotation: new Euler(
+        initialCamera.rotation.x,
+        initialCamera.rotation.y,
+        initialCamera.rotation.z,
+      ),
+      target: new Vector3(
+        initialCamera.target.x,
+        initialCamera.target.y,
+        initialCamera.target.z,
+      ),
     };
-
-    this.nextCamera.position.set(
-      initialCamera.position.x,
-      initialCamera.position.y,
-      initialCamera.position.z,
-    );
-    this.nextCamera.rotation.set(
-      initialCamera.rotation.x,
-      initialCamera.rotation.y,
-      initialCamera.rotation.z,
-    );
-    this.nextCamera.target = new Vector3(
-      initialCamera.target.x,
-      initialCamera.target.y,
-      initialCamera.target.z,
-    );
 
     this.resize();
   }
@@ -150,12 +165,16 @@ export default class Camera {
     this.controls.minDistance = 5;
     this.controls.maxDistance = 50;
     this.controls.enableDamping = true;
-    this.controls.target = new Vector3(
-      this.nextCamera.target.x,
-      this.nextCamera.target.y,
-      this.nextCamera.target.z,
+    this.controls.target.set(
+      this.params.camera[0].x,
+      this.params.camera[0].y,
+      this.params.camera[0].z,
     );
     this.controls.update();
+  }
+
+  switchCamera(_id) {
+    this.nextCamera = this.params.camera[_id];
   }
 
   resize() {
@@ -168,22 +187,22 @@ export default class Camera {
       this.controls.update();
     } else {
       gsap.to(this.instance.position, {
-        ease: 'power4.out',
-        duration: 3,
+        ease: 'power2.out',
+        duration: 2,
         x: this.nextCamera.position.x,
         y: this.nextCamera.position.y,
         z: this.nextCamera.position.z,
       });
       gsap.to(this.controls.target, {
-        ease: 'power4.out',
-        duration: 3,
+        ease: 'power2.out',
+        duration: 2,
         x: this.nextCamera.target.x,
         y: this.nextCamera.target.y,
         z: this.nextCamera.target.z,
       });
       gsap.to(this.instance.rotation, {
-        ease: 'power4.out',
-        duration: 3,
+        ease: 'power2.out',
+        duration: 2,
         x: this.nextCamera.rotation.x,
         y: this.nextCamera.rotation.y,
         z: this.nextCamera.rotation.z,

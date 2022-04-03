@@ -7,6 +7,9 @@ export default class Interface {
     this.experience = new Experience();
     this.setColorSwitch();
     this.setScroll();
+    this.setIntroduction();
+    this.setTimelines();
+    this.setListeners();
   }
 
   setColorSwitch() {
@@ -53,6 +56,91 @@ export default class Interface {
 
   setScroll() {
     this.scroll = new Scroll();
+  }
+
+  setIntroduction() {
+    // change message
+    const duration = 0.4;
+    gsap
+      .timeline()
+      .to('#loading > span', {
+        y: -24,
+        stagger: duration / 8,
+        duration: duration,
+        ease: 'power4.out',
+      })
+      .to('#loaded > span', {
+        y: -24,
+        stagger: duration / 8,
+        duration: duration,
+        ease: 'power4.out',
+      });
+
+    // fade loader
+    document.querySelector('#loader')
+      .addEventListener('click', (ev) => {
+        gsap
+          .timeline()
+          .to('#loader', {
+            alpha: 0,
+            duration: 0.5,
+          })
+          .to('#loader', {
+            display: 'none',
+            duration: 0,
+          })
+          .fromTo('.anim-intro', {
+            alpha: 0,
+          }, {
+            alpha: 1,
+            duration: 0.4,
+            stagger: 0.1,
+            ease: 'power4.out',
+            onStart: () => {
+              this.experience.camera.switchCamera(1);
+            },
+          });
+      });
+  }
+
+  setTimelines() {
+    this.tl = {};
+    this.tl.openConfig = gsap.timeline();
+    this.tl.openConfig
+      .to('.anim-intro', {
+        alpha: 0,
+      })
+      .to('.anim-intro', {
+        display: 'none',
+        duration: 0,
+      })
+      .to('.config-dom', {
+        display: 'block',
+        duration: 0,
+      })
+      .addLabel('startAnim')
+      .to('ul.config-dom li', {
+        alpha: 1,
+        stagger: 0.05,
+        duration: 3,
+        ease: 'power4.out',
+      }, 'startAnim')
+      .to('.btn-close', {
+        alpha: 1,
+        duration: 0.2,
+      }, 'startAnim')
+      .pause();
+  }
+
+  setListeners() {
+    document.querySelector('#switch-to-config').addEventListener('click', (ev) => {
+      this.experience.interface.tl.openConfig.play();
+      this.experience.camera.switchCamera(2);
+    });
+    document.querySelector('#btn-close').addEventListener('click', (ev) => {
+      this.experience.interface.tl.openConfig.timeScale(4).reverse();
+      this.experience.camera.switchCamera(1);
+    });
   }
 
   resize() {
