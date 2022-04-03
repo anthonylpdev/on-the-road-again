@@ -20,7 +20,7 @@ export default class Loader {
     this.loadResource();
   }
 
-  async setManager() {
+  setManager() {
     this.manager = new LoadingManager();
   }
 

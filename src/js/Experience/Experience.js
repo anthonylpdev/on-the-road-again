@@ -4,9 +4,11 @@ import Camera from './Camera';
 import Loader from './Loader';
 import World from './World';
 import Interface from './Interface';
+import { gsap } from 'gsap/all';
 
 export default class Experience {
   constructor(_options = {}) {
+    this.init();
     if (Experience.instance) {
       return Experience.instance;
     }
@@ -31,6 +33,23 @@ export default class Experience {
 
       this.update();
     };
+  }
+
+  init() {
+    const duration = 0.4;
+    gsap
+      .timeline()
+      .addLabel('start')
+      .to('#logo-light', {
+        alpha: 1,
+        ease: 'power4.in',
+      }, 'start')
+      .to('#loading > span', {
+        y: 0,
+        stagger: duration / 8,
+        duration: duration,
+        ease: 'power4.out',
+      }, 'start');
   }
 
   setInterface() {
