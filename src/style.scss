@@ -62,8 +62,10 @@ body {
                       border: 1px #FFF solid;
                       border-radius: 50%;
                       background-color: #000;
+                      transition: opacity 0.4s ease-out;
                       &:hover {
                         cursor: pointer;
+                        opacity: 0.4;
                       }
                     }
                   }

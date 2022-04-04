@@ -82,7 +82,7 @@ export default class Camera {
     };
     this.setInstance();
     this.setControls();
-    this.setDebug();
+    // this.setDebug();
   }
 
   setDebug() {
