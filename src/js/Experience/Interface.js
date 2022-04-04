@@ -7,8 +7,8 @@ export default class Interface {
     this.experience = new Experience();
     this.setColorSwitch();
     this.setScroll();
-    this.setIntroduction();
     this.setTimelines();
+    this.setIntroduction();
     this.setListeners();
   }
 
@@ -59,26 +59,9 @@ export default class Interface {
   }
 
   setIntroduction() {
-    // change message
-    const duration = 0.4;
-    gsap
-      .timeline()
-      .to('#loading > span', {
-        y: -24,
-        stagger: duration / 8,
-        duration: duration,
-        ease: 'power4.out',
-      })
-      .to('#loaded > span', {
-        y: -24,
-        stagger: duration / 8,
-        duration: duration,
-        ease: 'power4.out',
-      });
-
-    // fade loader
+    this.tl.intro.play();
     document.querySelector('#loader')
-      .addEventListener('click', (ev) => {
+      .addEventListener('click', () => {
         gsap
           .timeline()
           .to('#loader', {
@@ -115,7 +98,7 @@ export default class Interface {
         duration: 0,
       })
       .to('.config-dom', {
-        display: 'block',
+        display: 'flex',
         duration: 0,
       })
       .addLabel('startAnim')
@@ -130,17 +113,36 @@ export default class Interface {
         duration: 0.2,
       }, 'startAnim')
       .pause();
+    this.tl.intro = gsap.timeline();
+    const duration = 0.4;
+    this.tl.intro
+      .to('#loading > span', {
+        y: -24,
+        stagger: duration / 8,
+        duration,
+        ease: 'power4.out',
+      })
+      .to('#loaded > span', {
+        y: -24,
+        stagger: duration / 8,
+        duration,
+        ease: 'power4.out',
+      })
+      .pause();
   }
 
   setListeners() {
-    document.querySelector('#switch-to-config').addEventListener('click', (ev) => {
-      this.experience.interface.tl.openConfig.play();
-      this.experience.camera.switchCamera(2);
-    });
-    document.querySelector('#btn-close').addEventListener('click', (ev) => {
-      this.experience.interface.tl.openConfig.timeScale(4).reverse();
-      this.experience.camera.switchCamera(1);
-    });
+    document.querySelector('#switch-to-config')
+      .addEventListener('click', () => {
+        this.experience.interface.tl.openConfig.play();
+        this.experience.camera.switchCamera(2);
+      });
+    document.querySelector('#btn-close')
+      .addEventListener('click', () => {
+        this.experience.interface.tl.openConfig.timeScale(4)
+          .reverse();
+        this.experience.camera.switchCamera(1);
+      });
   }
 
   resize() {

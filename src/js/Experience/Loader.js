@@ -2,10 +2,9 @@ import {
   LoadingManager,
   TextureLoader,
   CubeTextureLoader,
-  sRGBEncoding
+  sRGBEncoding,
 } from 'three';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
-import { DDSLoader } from 'three/examples/jsm/loaders/DDSLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import {
   GLTFLoader,
 } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -26,10 +25,12 @@ export default class Loader {
 
   setLoaders() {
     this.textureLoader = new TextureLoader(this.manager);
-    this.FBXLoader = new FBXLoader(this.manager);
-    this.GLTFLoader = new GLTFLoader(this.manager);
     this.CubeTextureLoader = new CubeTextureLoader(this.manager);
-    this.DDSLoader = new DDSLoader(this.manager);
+    this.GLTFLoader = new GLTFLoader(this.manager);
+    this.DRACOLoader = new DRACOLoader(this.manager);
+    this.DRACOLoader.setDecoderConfig({ type: 'js' });
+    this.DRACOLoader.setDecoderPath('/');
+    this.GLTFLoader.setDRACOLoader(this.DRACOLoader);
   }
 
   loadResource() {
@@ -37,7 +38,7 @@ export default class Loader {
       {
         name: 'gltfScene',
         type: 'gltf',
-        path: 'assets/5008.glb',
+        path: 'assets/5008-optim.glb',
       },
       {
         name: 'envMap',
@@ -64,12 +65,14 @@ export default class Loader {
             };
           });
           break;
-        case 'dds':
-          this.DDSLoader.load(current.path, (currentResource) => {
+        case 'draco':
+          this.DRACOLoader.load(current.path, (currentResource) => {
+            currentResource.encoding = sRGBEncoding;
             this.resources = {
               ...this.resources,
               [current.name]: currentResource,
             };
+            this.DRACOLoader.dispose();
           });
           break;
         case 'cube':

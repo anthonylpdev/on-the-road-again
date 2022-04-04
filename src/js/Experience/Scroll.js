@@ -1,5 +1,5 @@
-import Experience from './Experience';
 import { lerp } from 'three/src/math/MathUtils';
+import Experience from './Experience';
 
 export default class Scroll {
   constructor() {
