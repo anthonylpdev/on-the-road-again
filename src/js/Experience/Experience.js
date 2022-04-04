@@ -1,10 +1,10 @@
 import { Color, Fog, Scene } from 'three';
+import { gsap } from 'gsap/all';
 import Renderer from './Renderer';
 import Camera from './Camera';
 import Loader from './Loader';
 import World from './World';
 import Interface from './Interface';
-import { gsap } from 'gsap/all';
 
 export default class Experience {
   constructor(_options = {}) {
@@ -47,7 +47,7 @@ export default class Experience {
       .to('#loading > span', {
         y: 0,
         stagger: duration / 8,
-        duration: duration,
+        duration,
         ease: 'power4.out',
       }, 'start');
   }

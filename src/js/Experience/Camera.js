@@ -1,8 +1,8 @@
 import { Euler, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import Experience from './Experience';
 import { Pane } from 'tweakpane';
 import gsap from 'gsap';
+import Experience from './Experience';
 
 export default class Camera {
   constructor() {
@@ -46,36 +46,19 @@ export default class Camera {
         },
         {
           position: {
-            x: -7.490006497837689,
-            y: 1.5277263775531744,
-            z: 2.6905331251051967,
+            x: -6.917355302559441,
+            y: 2.5688539035237277,
+            z: 4.574560184070792,
           },
           rotation: {
-            x: -0.23164261982330583,
-            y: -0.9559885267885452,
-            z: -0.1903511321947596,
+            x: -0.4063933425730152,
+            y: -0.9008613488340403,
+            z: -0.32534769564925003,
           },
           target: {
-            x: -3.4055848816461327,
-            y: 0.8656257700835449,
-            z: -0.1164444036212996,
-          },
-        },
-        {
-          position: {
-            x: -6.288161940405448,
-            y: 2.8263019063224926,
-            z: 5.488566901509377,
-          },
-          rotation: {
-            x: -0.36830801678987823,
-            y: -0.7546743966164058,
-            z: -0.25846038738994154,
-          },
-          target: {
-            x: -1.861511764258584,
-            y: 1.131472489993401,
-            z: 1.096883201555355,
+            x: -1.8522134516138302,
+            y: 0.9827784277563462,
+            z: 0.8890118031854758,
           },
         },
         {
@@ -99,7 +82,7 @@ export default class Camera {
     };
     this.setInstance();
     this.setControls();
-    // this.setDebug();
+    this.setDebug();
   }
 
   setDebug() {

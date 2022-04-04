@@ -66,13 +66,13 @@ export default class Interface {
       .to('#loading > span', {
         y: -24,
         stagger: duration / 8,
-        duration: duration,
+        duration,
         ease: 'power4.out',
       })
       .to('#loaded > span', {
         y: -24,
         stagger: duration / 8,
-        duration: duration,
+        duration,
         ease: 'power4.out',
       });
 
@@ -115,7 +115,7 @@ export default class Interface {
         duration: 0,
       })
       .to('.config-dom', {
-        display: 'block',
+        display: 'flex',
         duration: 0,
       })
       .addLabel('startAnim')
